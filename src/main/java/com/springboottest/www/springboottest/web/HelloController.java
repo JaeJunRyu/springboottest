@@ -1,5 +1,6 @@
 package com.springboottest.www.springboottest.web;
 
+import com.springboottest.www.springboottest.domain.posts.Posts;
 import com.springboottest.www.springboottest.web.dto.HelloResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,4 @@ public class HelloController {
                                     , @RequestParam("amount") int amount ) {
         return new HelloResponseDto(name, amount);
     }
-
-
-
-
 }
