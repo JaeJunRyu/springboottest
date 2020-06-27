@@ -3,9 +3,11 @@ package com.springboottest.www.springboottest.web.dto;
 import com.springboottest.www.springboottest.domain.posts.Posts;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class PostsResponseDto {
 
     private Long id;

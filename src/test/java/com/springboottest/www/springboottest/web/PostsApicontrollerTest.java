@@ -2,6 +2,7 @@ package com.springboottest.www.springboottest.web;
 
 import com.springboottest.www.springboottest.domain.posts.Posts;
 import com.springboottest.www.springboottest.domain.posts.PostsRepository;
+import com.springboottest.www.springboottest.web.dto.PostsResponseDto;
 import com.springboottest.www.springboottest.web.dto.PostsSaveRequestDto;
 import com.springboottest.www.springboottest.web.dto.PostsUpdateRequestDto;
 import org.junit.jupiter.api.AfterAll;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -112,6 +114,40 @@ class PostsApicontrollerTest {
         assertEquals(expectedContent, all.get(0).getContent());
 
     }
+
+    @Test
+    void Posts_조회된다() throws Exception {
+        //given
+        Posts postsSave =
+                postsRepository.save(Posts.builder()
+                        .title("testtitle")
+                        .content("content")
+                        .author("test")
+                        .build());
+
+        Long getId = postsSave.getId();
+
+        String url = "http://localhost:" + port + "/api/v1/posts/" + getId;
+
+        //when
+        ResponseEntity<PostsResponseDto> responseDtoResponseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, null ,PostsResponseDto.class);
+
+        //then
+        assertEquals(HttpStatus.OK, responseDtoResponseEntity.getStatusCode());
+
+        final Posts posts = postsRepository.findById(1L).orElse(null);
+
+        assertEquals(postsSave.getTitle(),posts.getTitle());
+
+
+        System.out.println(posts.getTitle());
+        System.out.println(posts.getContent());
+        System.out.println(posts.getAuthor());
+
+
+    }
+
 
 
 }
