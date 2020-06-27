@@ -7,7 +7,9 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
+@ToString
 @Getter
 @NoArgsConstructor
 @Entity
@@ -26,12 +28,26 @@ public class Posts {
 
     private String author;
 
-    @Builder
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdDateTime;
+
+
+
+
     public Posts(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
     }
+
+    @Builder
+    public Posts(String title, String content, String author, LocalDateTime createdDateTime) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.createdDateTime = createdDateTime;
+    }
+
 
     public void update(String title, String content) {
         this.title = title;
@@ -41,5 +57,6 @@ public class Posts {
     public void update( String content) {
         this.content = content;
     }
+
 
 }

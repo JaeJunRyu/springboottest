@@ -1,5 +1,6 @@
 package com.springboottest.www.springboottest.web;
 
+import com.springboottest.www.springboottest.domain.TestEntity;
 import com.springboottest.www.springboottest.domain.posts.Posts;
 import com.springboottest.www.springboottest.domain.posts.PostsRepository;
 import com.springboottest.www.springboottest.web.dto.PostsResponseDto;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +65,7 @@ class PostsApicontrollerTest {
                                             .title(title)
                                             .content(content)
                                             .author("jayjun")
+                                            .datetime(LocalDateTime.now())
                                             .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";
@@ -77,6 +80,11 @@ class PostsApicontrollerTest {
         List<Posts> all = postsRepository.findAll();
         assertEquals(title, all.get(0).getTitle());
         assertEquals(content, all.get(0).getContent());
+
+        for (Posts item:all  ) {
+            System.out.println(item.toString());
+        }
+
     }
 
     @Test
@@ -147,6 +155,7 @@ class PostsApicontrollerTest {
 
 
     }
+
 
 
 
